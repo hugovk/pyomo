@@ -41,11 +41,6 @@ jobs:
           TARGET: linux
           PYENV: pip
 
-        - os: macos-latest
-          python: 2.7
-          TARGET: osx
-          PYENV: pip
-
         - os: windows-latest
           python: 3.5
           TARGET: win
@@ -62,9 +57,7 @@ jobs:
           NAME: /mpi
 
         exclude:
-        - {os: macos-latest, python: pypy2}
         - {os: macos-latest, python: pypy3}
-        - {os: windows-latest, python: pypy2}
         - {os: windows-latest, python: pypy3}
 
 
@@ -295,7 +288,7 @@ jobs:
       run: |
         GAMS_DIR="${env:TPL_DIR}/gams"
         py_ver=$($PYTHON_EXE -c 'import sys;v="_%s%s" % sys.version_info[:2] \
-            ;print(v if v != "_27" else "")')
+            ;print(v)')
         if test -e $GAMS_DIR/apifiles/Python/api$py_ver; then
             echo "Installing GAMS Python bindings"
             pushd $GAMS_DIR/apifiles/Python/api$py_ver
